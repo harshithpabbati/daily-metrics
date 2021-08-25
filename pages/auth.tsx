@@ -20,7 +20,7 @@ const Auth = () => {
   return (
     <div className="row d-flex h-100 min-vh-100 align-items-center">
       <div className="col-md-4 offset-md-4">
-        <Pane elevation={0} background="tint2">
+        <Pane elevation={1} background="white">
           <div className="p-4">
             {sent && (
               <Alert intent="success" title="Email sent!" marginBottom={32}>

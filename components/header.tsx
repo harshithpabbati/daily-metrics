@@ -1,9 +1,11 @@
 import React from 'react';
 import { Popover, Avatar, LogOutIcon, Menu, Position } from 'evergreen-ui';
 
+import { useRouter } from 'next/router';
 import supabase from '../lib/supabase';
 
 const Header = () => {
+  const router = useRouter();
   const user = supabase.auth.user();
   return (
     <header className="bg-white nav-shadow fixed-top">
@@ -17,7 +19,7 @@ const Header = () => {
                 <Menu.Group>
                   <Menu.Item
                     icon={LogOutIcon}
-                    onClick={() => supabase.auth.signOut()}>
+                    onClick={() => router.push('/logout')}>
                     Log out
                   </Menu.Item>
                 </Menu.Group>
