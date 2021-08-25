@@ -65,7 +65,7 @@ const Homepage = () => {
             <Pane flex={1} alignItems="center">
               <Heading is="h3">Rooms</Heading>
               <Paragraph color="muted">
-                You created {rooms.total_count} rooms
+                There are {rooms.total_count} rooms
               </Paragraph>
             </Pane>
             <Pane>
