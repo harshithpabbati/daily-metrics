@@ -1,0 +1,7 @@
+.nav-shadow {
+    box-shadow: rgb(0 0 0 / 3%) 0 2px 0 0;
+}
+
+.fixed-top {
+    z-index: 10!important;
+}
