@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import DailyIframe from '@daily-co/daily-js';
 import axios from 'axios';
 
-import supabase from '../../lib/supabase';
-import Layout from '../../components/layout';
+import supabase from '../../../lib/supabase';
+import Layout from '../../../components/layout';
 
 const DailyRoom = () => {
   const user = supabase.auth.user();
