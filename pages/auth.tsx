@@ -8,11 +8,14 @@ const Auth = () => {
   const user = supabase.auth.user();
   const [email, setEmail] = useState<string>();
   const [sent, setSent] = useState(false);
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await supabase.auth.signIn({ email });
+    await supabase.auth.signIn(
+      { email },
+      { redirectTo: query.redirectTo ? query.redirectTo : undefined },
+    );
     setSent(true);
   };
 

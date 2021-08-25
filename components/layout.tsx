@@ -20,7 +20,8 @@ const Layout = ({ children, title }: Props) => {
   const user = supabase.auth.user();
 
   useEffect(() => {
-    if (!user) router.push('/auth');
+    if (!user)
+      router.push(`/auth?redirectTo=${global?.window?.location?.href}`);
     else setLoading(false);
   }, [router, user]);
 

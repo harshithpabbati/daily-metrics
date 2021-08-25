@@ -51,7 +51,7 @@ const DailyRoom = () => {
         await logMetrics(stats);
       }, 15000);
     };
-    if (router.isReady && router.query.name) {
+    if (router.isReady && router.query.name && user) {
       const { name } = router.query;
       getRoomURL(name).then(url => callFrame.join({ url }));
       callFrame.once('left-meeting', handleLeave);

@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'evergreen-ui';
 import dateFormat from 'dateformat';
 import Skeleton from 'react-loading-skeleton';
+import { useRouter } from 'next/router';
 
 type RoomsProps = {
   roomsData: any;
@@ -9,6 +10,7 @@ type RoomsProps = {
 };
 
 const Rooms = ({ roomsData, loaded }: RoomsProps) => {
+  const router = useRouter();
   return (
     <div className="px-2 pt-2">
       <Table.Body>
@@ -28,7 +30,7 @@ const Rooms = ({ roomsData, loaded }: RoomsProps) => {
               <Table.Row
                 key={room.id}
                 isSelectable
-                onSelect={() => alert(room.name)}>
+                onSelect={() => router.push(`/room/${room.name}/info`)}>
                 <Table.TextCell
                   isNumber
                   flexBasis={60}
