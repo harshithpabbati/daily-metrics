@@ -15,7 +15,7 @@ const DailyRoom = () => {
     let room: any;
     const getRoomURL = async (roomName: any) => {
       const res = await axios.get(`/api/room?name=${roomName}`);
-      room = res;
+      room = res.data;
       return res.data.url;
     };
     const handleLeave = () => {
