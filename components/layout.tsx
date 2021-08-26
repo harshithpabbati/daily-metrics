@@ -15,14 +15,15 @@ const defaultProps = {
 };
 
 const Layout = ({ children, title }: Props) => {
+  const user = supabase.auth.user();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const user = supabase.auth.user();
 
   useEffect(() => {
-    if (!user)
-      router.push(`/auth?redirectTo=${global?.window?.location?.href}`);
-    else setLoading(false);
+    if (router.isReady) {
+      if (!user) router.push(`/auth`);
+      else setLoading(false);
+    }
   }, [router, user]);
 
   return (

@@ -1,25 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { TextInputField, Pane, Button, Alert } from 'evergreen-ui';
 
+import { AuthChangeEvent } from '@supabase/supabase-js';
 import supabase from '../lib/supabase';
 
 const Auth = () => {
   const user = supabase.auth.user();
-  const [email, setEmail] = useState<string>();
-  const [sent, setSent] = useState(false);
-  const { push, query } = useRouter();
+  const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<any>(null);
+  const [sent, setSent] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await supabase.auth.signIn(
-      { email },
-      { redirectTo: query.redirectTo ? query.redirectTo : undefined },
-    );
-    setSent(true);
+    setError(null);
+    const { error } = await supabase.auth.signIn({ email });
+    if (error) setError(error);
+    else setSent(true);
   };
 
-  if (user) push('/');
+  useEffect(() => {
+    /* fires when a user signs in or out */
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event: AuthChangeEvent) => {
+        if (event === 'SIGNED_IN') {
+          router.push('/');
+        }
+      },
+    );
+    const user = supabase.auth.user();
+    if (user) router.push('/');
+    return () => {
+      authListener.unsubscribe();
+    };
+  }, [router]);
+
+  if (user) router.push('/');
   return (
     <div className="row d-flex h-100 min-vh-100 align-items-center">
       <div className="col-md-4 offset-md-4">
@@ -29,6 +46,14 @@ const Auth = () => {
               <Alert intent="success" title="Email sent!" marginBottom={32}>
                 Please confirm the email which we sent to your email address for
                 successful authentication.
+              </Alert>
+            )}
+            {error && (
+              <Alert
+                intent="danger"
+                title={`Error ${error.status}`}
+                marginBottom={32}>
+                {error.message}
               </Alert>
             )}
             <h3>Auth</h3>

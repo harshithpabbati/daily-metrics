@@ -99,11 +99,13 @@ const Info = () => {
                     ))}
                   </UnorderedList>
                 </div>
-                <div className="col-md-9 col-sm-12">
+                <div className="col-md-12 col-sm-12">
                   <Heading is="h5" marginTop={12}>
                     Metrics
                   </Heading>
-                  <Paragraph marginTop={12}>Participants</Paragraph>
+                  <Paragraph marginTop={12}>
+                    Participants ({Object.keys(usersData).length})
+                  </Paragraph>
                   <div className="row">
                     {Object.keys(usersData).map((user: any) => {
                       return (
