@@ -28,7 +28,7 @@ const DailyRoom = () => {
           data: metrics,
           call_data: { room },
           user_id: user.id,
-          room: room.name,
+          room: router.query.name,
         });
     };
     const callFrame = DailyIframe.createFrame({

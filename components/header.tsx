@@ -20,12 +20,16 @@ import supabase from '../lib/supabase';
 const Header = () => {
   const router = useRouter();
   const user = supabase.auth.user();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   return (
     <header className="bg-white nav-shadow fixed-top">
-      <nav className="navbar navbar-light mx-3">
-        <span className="navbar-brand mb-0">Daily Metrics</span>
+      <nav
+        className="navbar navbar-light mx-3"
+        style={{ textDecoration: 'none!important' }}>
+        <a href="/">
+          <span className="navbar-brand mb-0">Daily Metrics</span>
+        </a>
         <div className="navbar-text d-flex">
           {router.pathname === '/room/[name]' && (
             <Button
@@ -49,7 +53,7 @@ const Header = () => {
                 </Menu.Group>
               </Menu>
             }>
-            <Avatar name={user?.email} size={30} />
+            <Avatar name={user?.email} size={30} hashValue="id_124" />
           </Popover>
         </div>
       </nav>

@@ -11,6 +11,7 @@ import {
   Alert,
 } from 'evergreen-ui';
 import axios from 'axios';
+import { generateSlug } from 'random-word-slugs';
 
 import supabase from '../lib/supabase';
 import Layout from '../components/layout';
@@ -49,11 +50,15 @@ const Homepage = () => {
 
   const onSave = async () => {
     if (type === 'create') {
-      const res = await axios.post('/api/room', form);
-      if (res.data.url) {
-        push(`/room/${res.data.name}`);
-        setShow(false);
-      } else setError(`A room named "${form.name}" already exists.`);
+      try {
+        const res = await axios.post('/api/room', form);
+        if (res.data.url) {
+          push(`/room/${res.data.name}`);
+          setShow(false);
+        }
+      } catch (error) {
+        setError(`A room named "${form.name}" already exists.`);
+      }
     } else push(`/room/${form.name}`);
   };
 
@@ -84,6 +89,11 @@ const Homepage = () => {
                 onClick={() => {
                   setShow(true);
                   setType('create');
+                  setError('');
+                  setForm({
+                    ...form,
+                    name: generateSlug(2),
+                  });
                 }}>
                 Create Room
               </Button>

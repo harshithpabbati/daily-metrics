@@ -23,9 +23,10 @@ const handler = (req: any, res: any) => {
           },
         },
       );
+      console.log(response);
       return res.status(200).json(response.data);
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(400).json(error);
     }
   }
 
