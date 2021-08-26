@@ -20,7 +20,7 @@ import supabase from '../lib/supabase';
 const Header = () => {
   const router = useRouter();
   const user = supabase.auth.user();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   return (
     <header className="bg-white nav-shadow fixed-top">
