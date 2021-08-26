@@ -8,8 +8,8 @@ import Document, {
   NextScript,
 } from 'next/document';
 
-export default // @ts-ignore
-class MyDocument extends Document {
+// @ts-ignore
+export default class MyDocument extends Document {
   static getInitialProps(ctx: DocumentContext) {
     const page = ctx.renderPage();
     const { css, hydrationScript } = extractStyles();

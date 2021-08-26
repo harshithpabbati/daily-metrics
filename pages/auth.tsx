@@ -21,7 +21,7 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    /* fires when a user signs in or out */
+    /* fires when a user signs in */
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event: AuthChangeEvent) => {
         if (event === 'SIGNED_IN') {

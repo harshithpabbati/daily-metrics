@@ -44,9 +44,8 @@ const Homepage = () => {
       const res = await axios.get('/api/rooms');
       setRooms(res.data);
     };
-    if (!user) push('/auth');
-    else fetchRooms().finally(() => setLoaded(true));
-  }, [push, user]);
+    fetchRooms().finally(() => setLoaded(true));
+  }, [user]);
 
   const onSave = async () => {
     if (type === 'create') {
