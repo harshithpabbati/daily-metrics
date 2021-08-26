@@ -8,7 +8,6 @@ import {
   Button,
   IconButton,
   ClipboardIcon,
-  CornerDialog,
   NewPersonIcon,
   Paragraph,
   toaster,
@@ -16,6 +15,7 @@ import {
 
 import { useRouter } from 'next/router';
 import supabase from '../lib/supabase';
+import Modal from './modal';
 
 const Header = () => {
   const router = useRouter();
@@ -33,7 +33,7 @@ const Header = () => {
         <div className="navbar-text d-flex">
           {router.pathname === '/room/[name]' && (
             <Button
-              appearance="minimal"
+              appearance="primary"
               iconBefore={NewPersonIcon}
               onClick={() => setShow(true)}
               marginRight={20}>
@@ -57,11 +57,11 @@ const Header = () => {
           </Popover>
         </div>
       </nav>
-      <CornerDialog
+      <Modal
         title="Want to invite someone?"
         isShown={show}
-        hasFooter={false}
-        onCloseComplete={() => setShow(false)}>
+        setIsShown={() => setShow(false)}
+        hasFooter={false}>
         <Paragraph>Click here to copy the invitation link.</Paragraph>
         <div className="input-group mb-3">
           <input
@@ -81,7 +81,7 @@ const Header = () => {
             />
           </div>
         </div>
-      </CornerDialog>
+      </Modal>
     </header>
   );
 };
