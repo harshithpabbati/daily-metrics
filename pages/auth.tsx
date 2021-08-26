@@ -61,7 +61,6 @@ const Auth = () => {
             <form onSubmit={handleSubmit}>
               <TextInputField
                 label="Email"
-                labelFor="email"
                 placeholder="Your email address"
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}

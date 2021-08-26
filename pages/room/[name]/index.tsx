@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import DailyIframe from '@daily-co/daily-js';
 import axios from 'axios';
 
+import { Card } from 'evergreen-ui';
 import supabase from '../../../lib/supabase';
 import Layout from '../../../components/layout';
 
 const DailyRoom = () => {
   const user = supabase.auth.user();
   const router = useRouter();
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     let interval: any;
@@ -53,7 +55,9 @@ const DailyRoom = () => {
     };
     if (router.isReady && router.query.name && user) {
       const { name } = router.query;
-      getRoomURL(name).then(url => callFrame.join({ url }));
+      getRoomURL(name)
+        .then(url => callFrame.join({ url }))
+        .catch(() => setNotFound(true));
       callFrame.once('left-meeting', handleLeave);
       callFrame.on('joined-meeting', handleMetrics);
     }
@@ -62,7 +66,24 @@ const DailyRoom = () => {
 
   return (
     <Layout>
-      <div>Loading...</div>
+      {notFound ? (
+        <div className="row d-flex h-100 min-vh-100 align-items-center">
+          <div className="col-md-5 offset-md-4">
+            <Card elevation={1} background="white">
+              <div className="p-4">
+                <h3>Not Found</h3>
+                <h5>Looks like the room does not exist</h5>
+              </div>
+            </Card>
+          </div>
+        </div>
+      ) : (
+        <div className="d-flex align-items-center min-vh-100">
+          <div className="container text-center">
+            <h4>Loading...</h4>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
