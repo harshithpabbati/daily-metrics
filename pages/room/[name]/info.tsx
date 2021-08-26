@@ -8,6 +8,8 @@ import {
   ListItem,
   TickIcon,
   Paragraph,
+  Button,
+  ChevronRightIcon,
 } from 'evergreen-ui';
 import dateFormat from 'dateformat';
 
@@ -54,6 +56,26 @@ const Info = () => {
         <Pane elevation={1} padding={16} margin={24}>
           {meeting && Object.keys(meeting).length > 0 ? (
             <>
+              <Pane display="flex" borderRadius={3} paddingBottom={10}>
+                <Pane flex={1} alignItems="center" display="flex">
+                  <Text>
+                    <a href="/">Home</a>
+                    <ChevronRightIcon />
+                    <a href={`/room/${router.query.name}`}>
+                      {router.query.name}
+                    </a>
+                    <ChevronRightIcon />
+                    <a href={`/room/${router.query.name}/info`}>info</a>
+                  </Text>
+                </Pane>
+                <Pane>
+                  <Button
+                    appearance="primary"
+                    onClick={() => router.push(`/room/${router.query.name}`)}>
+                    Join Room
+                  </Button>
+                </Pane>
+              </Pane>
               <div className="row">
                 <div className="col-md-3 col-sm-12">
                   <Heading is="h5" marginTop={12}>
